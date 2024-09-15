@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 /*To create a new route. */
-export const POST = async(req, res) => {
+export const POST = async(req) => {
     /* First we need to grab the things we have passed through the POST request */
     const  { userId, prompt, tag } = await req.json();
     
@@ -11,9 +11,9 @@ export const POST = async(req, res) => {
         await connectToDB();
         const newPrompt = new Prompt({
             creator: userId,
+            tag,
             prompt,
-            tag
-        })
+        });
 
         await newPrompt.save();
 
